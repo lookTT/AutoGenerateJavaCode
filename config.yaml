@@ -1,11 +1,11 @@
-HOST: "223.71.234.58"
+HOST: "127.0.0.1"
 POST: 3306
-UserName: "ggzdev12138"
-PassWd: "ggDevZMima245353"
-DBName: "zt_app_operate_manage"
+UserName: "root"
+PassWd: "root"
+DBName: "test"
 ExcludeDBName: [information_schema,mysql,performance_schema,school,sys,test]
 #包含的DB名称 如果配置该信息则只导出该DB内数据
-IncludeDBName: [zt_app_operate_manage]
+IncludeDBName: [test]
 
 AUTHOR: zltdhr
 ClassNamePrefix: ""
