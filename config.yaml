@@ -16,6 +16,7 @@ PackageApi: "com.zt.appoperatemanage.api"
 PackageFallback: "com.zt.appoperatemanage.fallback"
 
 ApplicationName: "zt-appoperatemanage-server"
+IsDBNameInMyBatis: no
 
 #类型转化<mysqlDataType:OtherType>
 #TypeTranslate: {
@@ -47,8 +48,10 @@ ApplicationName: "zt-appoperatemanage-server"
 #类型转化<mysqlDataType:OtherType>
 TypeTranslate: {
   #整数
-  bit: "\r\n    private Integer %s; //%s\r\n",
-  tinyint: "\r\n    private Integer %s; //%s\r\n",
+#  bit: "\r\n    private Integer %s; //%s\r\n",
+#  tinyint: "\r\n    private Integer %s; //%s\r\n",
+  bit: "\r\n    private Boolean %s; //%s\r\n",
+  tinyint: "\r\n    private Boolean %s; //%s\r\n",
   smallint: "\r\n    private Integer %s; //%s\r\n",
   mediumint: "\r\n    private Integer %s; //%s\r\n",
   int: "\r\n    private Integer %s; //%s\r\n",
@@ -68,5 +71,8 @@ TypeTranslate: {
   longtext: "\r\n    private String %s; //%s\r\n",
 
   #日期时间
-  datetime: "\r\n    @Getter(onMethod_ = {@JsonSerialize(using = TimestampSerializer.class)})\r\n    private Date %s; //%s\r\n",
+  # datetime: "\r\n    @Getter(onMethod_ = {@JsonSerialize(using = TimestampSerializer.class)})\r\n    private Date %s; //%s\r\n",
+  # date: "\r\n    @Getter(onMethod_ = {@JsonSerialize(using = TimestampSerializer.class)})\r\n    private Date %s; //%s\r\n",
+  datetime: "\r\n    private Date %s; //%s\r\n",
+  date: "\r\n    private Date %s; //%s\r\n",
 }

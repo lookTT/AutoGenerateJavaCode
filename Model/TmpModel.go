@@ -1,24 +1,25 @@
 package Model
 
 type SConfig struct {
-	HOST             string
-	POST             int
-	UserName         string
-	PassWd           string
-	DBName           string
-	ExcludeDBName    []string
-	ExcludeDBNameMap map[string]int
-	IncludeDBName    []string
-	IncludeDBNameMap map[string]int
-	AUTHOR           string
-	ClassNamePrefix  string
-	ClassNameSuffix  string
-	PackageStruct    string
-	PackageMapper    string
-	PackageApi       string
-	PackageFallback  string
-	ApplicationName  string
-	TypeTranslate    map[string]string
+	HOST              string
+	POST              int
+	UserName          string
+	PassWd            string
+	DBName            string
+	ExcludeDBName     []string
+	ExcludeDBNameMap  map[string]int
+	IncludeDBName     []string
+	IncludeDBNameMap  map[string]int
+	AUTHOR            string
+	ClassNamePrefix   string
+	ClassNameSuffix   string
+	PackageStruct     string
+	PackageMapper     string
+	PackageApi        string
+	PackageFallback   string
+	ApplicationName   string
+	TypeTranslate     map[string]string
+	IsDBNameInMyBatis bool
 }
 
 type SStructTemplate struct {
@@ -39,6 +40,7 @@ type SMapperTemplate struct {
 }
 
 type SMybatisTemplate struct {
+	DBName                string //库名
 	TableName             string //表名
 	MapperPath            string //mapper路径
 	StructPath            string //结构体路径

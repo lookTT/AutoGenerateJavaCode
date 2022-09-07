@@ -24,8 +24,6 @@ var mapperTemplate Model.SMapperTemplate
 var mybatisTemplate Model.SMybatisTemplate
 var ttTemplate *template.Template
 
-
-
 func checkErr(err error) {
 	if err != nil {
 		panic(err)
@@ -117,7 +115,7 @@ func MapperHandler(curTableName string) {
 }
 
 //处理Mybatis
-func MybatisHandler(curTableName string, sFieldInfos []Model.SFieldInfo, size int) {
+func MybatisHandler(curDBName string, curTableName string, sFieldInfos []Model.SFieldInfo, size int) {
 	var sFieldInfo Model.SFieldInfo
 	var CustomResultMapBuffer bytes.Buffer
 	var TableColumnsBuffer bytes.Buffer
@@ -165,6 +163,9 @@ func MybatisHandler(curTableName string, sFieldInfos []Model.SFieldInfo, size in
 	}
 	TableNameCamel := HandlingStringsBig(curTableName)
 	TableNameCamel = fmt.Sprintf("%s%s%s", config.ClassNamePrefix, TableNameCamel, config.ClassNameSuffix)
+	if config.IsDBNameInMyBatis {
+		mybatisTemplate.DBName = fmt.Sprintf("`%s`.", curDBName)
+	}
 	mybatisTemplate.TableName = curTableName
 	mybatisTemplate.MapperPath = config.PackageMapper + "." + TableNameCamel + "Mapper"
 	mybatisTemplate.StructPath = config.PackageStruct + "." + TableNameCamel
@@ -233,7 +234,7 @@ func TableProcessing(curDBName string, curTableName string) {
 
 	StructHandler(curTableName, sFieldInfos, len(sFieldInfos))
 	MapperHandler(curTableName)
-	MybatisHandler(curTableName, sFieldInfos, len(sFieldInfos))
+	MybatisHandler(curDBName, curTableName, sFieldInfos, len(sFieldInfos))
 	Interface.DoSomeWork(&config, curTableName, sFieldInfos, len(sFieldInfos))
 }
 

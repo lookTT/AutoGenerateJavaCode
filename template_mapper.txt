@@ -25,6 +25,8 @@ public interface {{.InterfaceName}} {
 
     List<{{.StructName}}> findByLimit(Map<String, Object> map);
 
+    List<{{.StructName}}> findByIdList(@Param("idList") List<Long> idList);
+
     Integer findSumByLimit(Map<String, Object> map);
 
     //仅仅批量更新排序索引

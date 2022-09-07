@@ -15,7 +15,7 @@
     </sql>
 
     <insert id="insert" parameterType="{{.StructPath}}" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO {{.TableName}}(
+        INSERT INTO {{.DBName}}{{.TableName}}(
         <include refid="table_columns"/>
         )
         VALUES (
@@ -24,7 +24,7 @@
     </insert>
 
     <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true">
-        INSERT INTO {{.TableName}}(
+        INSERT INTO {{.DBName}}{{.TableName}}(
         <include refid="table_columns"/>
         )
         VALUES
@@ -36,7 +36,7 @@
     </insert>
 
     <update id="update" parameterType="{{.StructPath}}">
-        UPDATE {{.TableName}}
+        UPDATE {{.DBName}}{{.TableName}}
         <trim prefix="set" suffixOverrides=",">
 {{.UpdateContent}}
         </trim>
@@ -46,7 +46,7 @@
     <select id="findById" resultMap="CustomResultMap" parameterType="Long">
         SELECT
         <include refid="table_columns"/>
-        FROM {{.TableName}}
+        FROM {{.DBName}}{{.TableName}}
         WHERE id = #{id}
     </select>
     <!-- 使用like用法：columnName like concat('%',#columnName#,'%') -->
@@ -72,7 +72,7 @@
     <select id="findByLimit" resultMap="CustomResultMap" parameterType="map">
         SELECT
         <include refid="table_columns"/>
-        FROM {{.TableName}}
+        FROM {{.DBName}}{{.TableName}}
         <include refid="findByLimitWhere"/>
         <if test="sortField != null and sortField != ''">
             ORDER BY ${sortField}
@@ -82,15 +82,29 @@
         </if>
     </select>
 
+    <select id="findByIdList" resultMap="CustomResultMap" parameterType="java.util.List">
+        SELECT
+        <include refid="table_columns"/>
+        FROM {{.DBName}}{{.TableName}}
+        <where>
+            <if test="idList != null">
+                AND id IN
+                <foreach collection="idList" item="it" separator="," open="(" close=")">
+                    #{it}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
     <select id="findSumByLimit" resultType="Integer" parameterType="map">
         SELECT COUNT(1)
-        FROM {{.TableName}}
+        FROM {{.DBName}}{{.TableName}}
         <include refid="findByLimitWhere"/>
     </select>
 
     <update id="updateSortBatch" parameterType="java.util.List">
         <if test="list != null and list.size > 0">
-            UPDATE {{.TableName}}
+            UPDATE {{.DBName}}{{.TableName}}
             <trim prefix="set" suffixOverrides=",">
                 <trim prefix="sort_value=case" suffix="end,">
                     <foreach collection="list" item="item" index="index">

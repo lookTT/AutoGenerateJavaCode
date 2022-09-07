@@ -6,6 +6,7 @@ import com.zt.utils.TimestampSerializer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -14,10 +15,7 @@ import java.util.Date;
  * @author {{.AUTHOR}}
  * @date {{.DATE}}
  */
-@SuppressWarnings("serial")
-@Getter
-@Setter
-@ToString(callSuper = true)
-public class {{.CLASSNAME}} extends BaseEntity {
+@Data
+public class {{.CLASSNAME}} {
 {{.DATA}}
 }
